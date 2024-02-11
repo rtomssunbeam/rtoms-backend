@@ -26,6 +26,9 @@ public class User extends BaseEntity {
 	@Column(length = 30,unique=true,name="email")
 	private String email;
 	
+    @Column(name="adharcard_no",length=20, unique = true)
+	private String adharcardNo;
+	
 	
 	@Column(length = 20,name="first_name")
 	private String firstName;
@@ -43,7 +46,7 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING) 
     private Role role;
     
-
+    
     
 
 }
