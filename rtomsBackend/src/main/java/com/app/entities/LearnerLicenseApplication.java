@@ -5,6 +5,7 @@ import com.app.enums.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.*;
 
@@ -15,6 +16,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LearnerLicenseApplication extends BaseEntity {
+	
+	@OneToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
     @Column(name = "first_name")
     private String firstName;
     
@@ -23,7 +29,7 @@ public class LearnerLicenseApplication extends BaseEntity {
     
     @Column(name = "last_name")
     private String lastName;
-    
+      
     @Column(name = "mobile_number")
     private String mobileNumber;
     
@@ -69,7 +75,7 @@ public class LearnerLicenseApplication extends BaseEntity {
     @JoinTable(name = "application_application_type",
             joinColumns = @JoinColumn(name = "application_id"),
             inverseJoinColumns = @JoinColumn(name = "application_type_id"))
-    private Set<ApplicationType> applicationTypes;
+    private Set<ApplicationType> applicationTypes=new HashSet<>();
     
     @Column(name = "approval_time")
     private LocalDateTime approvalTime;

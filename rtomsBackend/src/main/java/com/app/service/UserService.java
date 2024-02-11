@@ -10,6 +10,8 @@ import com.app.entities.User;
 public interface UserService {
 
 	 void addUser(UserDTO user);
+
+	User authenticate(UserDTO userDto);
 }
 
 //JavaRT
