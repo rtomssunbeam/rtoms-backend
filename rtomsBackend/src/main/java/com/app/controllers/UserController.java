@@ -38,6 +38,46 @@ public class UserController {
 		return ResponseEntity.status(200).body(resp);		
 	}
 	
+	@PostMapping("/signIn")
+	public ResponseEntity<?>logIn(@RequestBody UserDTO userDto)
+	{
+		Logger logger=LoggerFactory.getLogger(UserController.class);
+	   	logger.info(userDto.toString());
+		User user=userService.authenticate(userDto);
+		ApiResponse resp=new ApiResponse();
+		
+		if(user!=null && user.getRole().toString().equals("USER"))
+		{
+			if(user.getPassword().equals(userDto.getPassword())) {
+				resp.setMsg("user logged in successfully");	
+				return ResponseEntity.status(200).body(resp);
+			}
+			else
+			{
+				resp.setMsg("incorrect password!");
+				return ResponseEntity.status(200).body(resp);			
+			}
+			
+			
+		}
+		
+		else if(user!=null && !user.getRole().toString().equals("USER"))
+		{
+			resp.setMsg("invalid login!");
+			return ResponseEntity.status(401).body(resp);
+		}
+		
+		else
+		{
+			resp.setMsg("user not found, please signup!");
+			return ResponseEntity.status(401).body(resp);
+		}
+		
+		
+		
+				
+	}
+	
 	
 	
 
