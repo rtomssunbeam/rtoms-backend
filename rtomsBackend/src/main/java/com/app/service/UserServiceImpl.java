@@ -22,5 +22,11 @@ public class UserServiceImpl implements UserService  {
 		
 		userDao.save(user);
 	}
+	
+	@Override
+	public User authenticate(UserDTO userDto) {
+		
+		return userDao.findByEmail(mapper.map(userDto, User.class).getEmail());
+	}
 
 }
