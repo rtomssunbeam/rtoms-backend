@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.app.entities.LearnerLicenseApplication;
 
-public interface LLADao extends JpaRepository<LearnerLicenseApplication, Integer> {
+public interface LernerApplicationDao extends JpaRepository<LearnerLicenseApplication, Integer> {
 
 }

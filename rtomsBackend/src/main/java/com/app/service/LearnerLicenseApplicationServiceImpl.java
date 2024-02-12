@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.daos.ApplicationTypeDao;
-import com.app.daos.LLADao;
+import com.app.daos.LernerApplicationDao;
 import com.app.daos.UserDao;
 import com.app.dtos.ApiResponse;
 import com.app.dtos.LearningLicenseApplicationDTO;
@@ -23,7 +23,7 @@ import com.app.entities.User;
 public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseApplicationService {
 
 	@Autowired
-	private LLADao llaDao;
+	private LernerApplicationDao lernerAppDao;
 	
 	@Autowired
 	private UserDao userDao;
@@ -35,23 +35,40 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 	private ModelMapper mapper;
 	
 	@Override
-	public ApiResponse addllApplication(LearningLicenseApplicationDTO llaDTO) {
-		Integer userId =llaDTO.getUserId();
+	public ApiResponse addLernerLicenseApplication(LearningLicenseApplicationDTO lernerAppDTO) {
+		
+		Integer userId =lernerAppDTO.getUserId();
+		
 		User user = userDao.findById(userId).orElseThrow();
 		
-		Set<ApplicationType> applicationTypes1=new HashSet<>();
-		for (String type   : llaDTO.getApplicationTypes()) {
-			System.out.println(type);
-			applicationTypes1.add(applicationTypeDao.findByApplicationType(type));
-			
+		LearnerLicenseApplication lernerApp = mapper.map(lernerAppDTO, LearnerLicenseApplication.class);
+		
+		System.out.println(lernerApp.getApplicationTypes());
+		
+		lernerApp.getApplicationTypes().clear();
+		
+		System.out.println(lernerApp);
+		
+		Set<ApplicationType> applicationTypes=new HashSet<>();
+		
+		lernerAppDTO.getApplicationTypes().forEach(s->applicationTypes.add(applicationTypeDao.findByApplicationType(s)));
+		
+		System.out.println(applicationTypes);
+
+		lernerApp.setUser(user);
+		
+		System.out.println(lernerApp.getApplicationTypes());
+		
+		for(ApplicationType eachType:applicationTypes)
+		{
+			lernerApp.addType(eachType);
 		}
-		System.out.println(applicationTypes1);
 		
+		System.out.println(lernerApp.getApplicationTypes());
 		
-		LearnerLicenseApplication lla = mapper.map(llaDTO, LearnerLicenseApplication.class);
-		lla.setUser(user);
-		lla.addTypes(applicationTypes1);
-		llaDao.save(lla);
+		System.out.println(lernerApp);
+		
+		lernerAppDao.save(lernerApp);
 		
 		return new ApiResponse("application submitted successfully");
 	}

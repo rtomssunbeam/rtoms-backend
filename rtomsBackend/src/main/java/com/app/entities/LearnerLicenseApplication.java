@@ -103,9 +103,8 @@ public class LearnerLicenseApplication extends BaseEntity {
     @Column(name = "approval_time")
     private LocalDateTime approvalTime;
     
-    public void addTypes(Set<ApplicationType>types)
-    {
-    	types.forEach(type->this.applicationTypes.add(type));
-    	this.applicationTypes.forEach(type->type.getLearnerLicenseApplications().add(this));
+    public void addType(ApplicationType applicationType) {
+        this.applicationTypes.add(applicationType);
+        applicationType.getLearnerLicenseApplications().add(this);
     }
 }

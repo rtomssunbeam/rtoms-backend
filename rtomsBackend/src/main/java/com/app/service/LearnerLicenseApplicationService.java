@@ -5,6 +5,6 @@ import com.app.dtos.LearningLicenseApplicationDTO;
 
 public interface LearnerLicenseApplicationService {
 
-	public ApiResponse addllApplication(LearningLicenseApplicationDTO llaDTO);
+	public ApiResponse addLernerLicenseApplication(LearningLicenseApplicationDTO llaDTO);
 
 }

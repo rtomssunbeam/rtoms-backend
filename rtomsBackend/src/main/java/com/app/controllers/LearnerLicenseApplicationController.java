@@ -18,7 +18,7 @@ import com.app.service.LearnerLicenseApplicationService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/llapplication")
+@RequestMapping("/lernerLicense")
 @Slf4j
 @Validated
 public class LearnerLicenseApplicationController {
@@ -31,19 +31,14 @@ public class LearnerLicenseApplicationController {
 	}
 	
 	
-	// REST API end point
-	// URL : http://localhost:8080/llapplication/
-	// Method : POST
-	// resp : sc 201
-	@PostMapping("/llapplicationform")
-	public ResponseEntity<?> llApplicationForm(@RequestBody LearningLicenseApplicationDTO llaDTO)
+	@PostMapping("/application")
+	public ResponseEntity<?> llApplicationForm(@RequestBody LearningLicenseApplicationDTO lernerLicenseApplicationDto)
 	{
 		Logger logger=LoggerFactory.getLogger(LearnerLicenseApplicationController.class);
-	   	logger.info(llaDTO.toString());
+	   	logger.info(lernerLicenseApplicationDto.toString());
 	   
-//		ApiResponse resp=new ApiResponse();
-//		resp.setMsg("application submitted successfully");
-		return ResponseEntity.status(HttpStatus.CREATED).body(llApplicationService.addllApplication(llaDTO));	
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(llApplicationService.addLernerLicenseApplication(lernerLicenseApplicationDto));	
 	}
 
 }

@@ -2,6 +2,8 @@ package com.app.dtos;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
@@ -79,7 +81,7 @@ public class LearningLicenseApplicationDTO {
 	private MultipartFile addressProof;
 
 
-	private Set<String> applicationTypes;
+	private Set <String> applicationTypes=new HashSet<>();
 	
 	
 	
