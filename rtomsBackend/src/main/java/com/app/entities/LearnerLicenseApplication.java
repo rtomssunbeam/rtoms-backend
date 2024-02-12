@@ -14,11 +14,34 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
+@ToString(callSuper = true/*, exclude = { "profilePhoto", "educationalDocument","addressProof" }*/)
 public class LearnerLicenseApplication extends BaseEntity {
 	
+	public LearnerLicenseApplication(String firstName, String middleName, String lastName, String mobileNumber,
+			PostalAddress postalAddress, Gender gender, BloodGroup bloodGroup, LocalDate dateOfBirth,
+			RtoOffice rtoOffice, Qualification qualification, byte[] profilePhoto, byte[] educationalDocument,
+			byte[] addressProof, LocalDateTime entryTime, LocalDateTime approvalTime) {
+		super();
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.mobileNumber = mobileNumber;
+		this.postalAddress = postalAddress;
+		this.gender = gender;
+		this.bloodGroup = bloodGroup;
+		this.dateOfBirth = dateOfBirth;
+		this.rtoOffice = rtoOffice;
+		this.qualification = qualification;
+		this.profilePhoto = profilePhoto;
+		this.educationalDocument = educationalDocument;
+		this.addressProof = addressProof;
+		this.entryTime = entryTime;
+		this.approvalTime = approvalTime;
+	}
+
 	@OneToOne
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false, unique=true)
 	private User user;
 	
     @Column(name = "first_name")
@@ -71,7 +94,7 @@ public class LearnerLicenseApplication extends BaseEntity {
     @Column(name = "entry_time")
     private LocalDateTime entryTime;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "application_application_type",
             joinColumns = @JoinColumn(name = "application_id"),
             inverseJoinColumns = @JoinColumn(name = "application_type_id"))
@@ -79,4 +102,10 @@ public class LearnerLicenseApplication extends BaseEntity {
     
     @Column(name = "approval_time")
     private LocalDateTime approvalTime;
+    
+    public void addTypes(Set<ApplicationType>types)
+    {
+    	types.forEach(type->this.applicationTypes.add(type));
+    	this.applicationTypes.forEach(type->type.getLearnerLicenseApplications().add(this));
+    }
 }
