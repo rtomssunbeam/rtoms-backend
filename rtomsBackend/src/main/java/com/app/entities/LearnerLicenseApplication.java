@@ -18,7 +18,7 @@ import lombok.*;
 public class LearnerLicenseApplication extends BaseEntity {
 	
 	@OneToOne
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false,unique=true)
 	private User user;
 	
     @Column(name = "first_name")
@@ -79,4 +79,12 @@ public class LearnerLicenseApplication extends BaseEntity {
     
     @Column(name = "approval_time")
     private LocalDateTime approvalTime;
+    
+    
+    public void addType(ApplicationType applicationType) {
+        this.applicationTypes.add(applicationType);
+        applicationType.getLearnerLicenseApplications().add(this);
+    }
+    
+    
 }

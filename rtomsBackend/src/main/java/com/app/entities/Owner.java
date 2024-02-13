@@ -67,4 +67,14 @@ public class Owner extends BaseEntity {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vehicle> vehicles = new ArrayList<>();
     
+    public String addVehicle(Vehicle vehicle)
+    {	
+    	this.vehicles.add(vehicle);
+    	vehicle.setOwner(this);
+		return "vehicle added to "+this.email+" user";
+    	
+    }
+    
+    
+    
 }
