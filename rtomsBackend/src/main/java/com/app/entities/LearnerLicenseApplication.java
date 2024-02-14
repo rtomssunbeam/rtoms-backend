@@ -14,8 +14,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
-@ToString(callSuper = true/*, exclude = { "profilePhoto", "educationalDocument","addressProof" }*/)
+@AllArgsConstructor
 public class LearnerLicenseApplication extends BaseEntity {
 	
 	public LearnerLicenseApplication(String firstName, String middleName, String lastName, String mobileNumber,
@@ -33,15 +32,15 @@ public class LearnerLicenseApplication extends BaseEntity {
 		this.dateOfBirth = dateOfBirth;
 		this.rtoOffice = rtoOffice;
 		this.qualification = qualification;
-		this.profilePhoto = profilePhoto;
-		this.educationalDocument = educationalDocument;
-		this.addressProof = addressProof;
+//		this.profilePhoto = profilePhoto;
+//		this.educationalDocument = educationalDocument;
+//		this.addressProof = addressProof;
 		this.entryTime = entryTime;
 		this.approvalTime = approvalTime;
 	}
 
 	@OneToOne
-	@JoinColumn(name = "user_id", nullable = false, unique=true)
+	@JoinColumn(name = "user_id", nullable = false,unique=true)
 	private User user;
 	
     @Column(name = "first_name")
@@ -78,7 +77,7 @@ public class LearnerLicenseApplication extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "qualification")
     private Qualification qualification;
-    
+ /*   
     @Lob
     @Column(name = "profile_photo")
     private byte[] profilePhoto;
@@ -90,6 +89,11 @@ public class LearnerLicenseApplication extends BaseEntity {
     @Lob
     @Column(name = "address_proof")
     private byte[] addressProof;
+ */
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "document_id", referencedColumnName = "id")
+    private Document myDocument;
     
     @Column(name = "entry_time")
     private LocalDateTime entryTime;
@@ -103,8 +107,20 @@ public class LearnerLicenseApplication extends BaseEntity {
     @Column(name = "approval_time")
     private LocalDateTime approvalTime;
     
+
     public void addType(ApplicationType applicationType) {
         this.applicationTypes.add(applicationType);
         applicationType.getLearnerLicenseApplications().add(this);
     }
+
+
+
+	@Override
+	public String toString() {
+		return "LearnerLicenseApplication [  firstName=" + firstName + ", middleName=" + middleName
+				+ ", lastName=" + lastName + ", mobileNumber=" + mobileNumber + ", postalAddress=" + postalAddress
+				+ ", gender=" + gender + ", bloodGroup=" + bloodGroup + ", dateOfBirth=" + dateOfBirth + ", rtoOffice="
+				+ rtoOffice + ", qualification=" + qualification + ", entryTime=" + entryTime + ", approvalTime="
+				+ approvalTime + "]";
+	}
 }

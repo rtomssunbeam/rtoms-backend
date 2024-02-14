@@ -30,4 +30,5 @@ public class PostalAddressDTO {
 	@Size(max = 10, message = "Zip code must be at most 10 characters")
 	private String zipCode;
 
+
 }

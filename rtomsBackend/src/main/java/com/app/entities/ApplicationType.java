@@ -16,7 +16,7 @@ public class ApplicationType extends BaseEntity {
     private String applicationType;
     
 
-    @ManyToMany(mappedBy = "applicationTypes")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "applicationTypes")
     private Set<LearnerLicenseApplication> learnerLicenseApplications=new HashSet<>();
 
 
