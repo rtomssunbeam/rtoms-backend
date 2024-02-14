@@ -1,6 +1,7 @@
 package com.app.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.validation.Valid;
 
@@ -21,7 +22,9 @@ import com.app.dtos.ApiResponse;
 import com.app.dtos.DocumentDTO;
 import com.app.dtos.LearningLicenseApplicationDTO;
 import com.app.entities.Document;
+import com.app.entities.LearnerLicenseApplication;
 import com.app.service.LearnerLicenseApplicationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,21 +34,25 @@ import lombok.extern.slf4j.Slf4j;
 @Validated
 public class LearnerLicenseApplicationController {
 	
-	@Autowired // (required = true)
-	LearnerLicenseApplicationService lernerApplicationService;
-
-	@PostMapping("/application")
-	public ResponseEntity<?> llApplicationForm( @RequestBody LearningLicenseApplicationDTO lernerLicenseApplicationDto)
-	{
-		
-		Logger logger=LoggerFactory.getLogger(LearnerLicenseApplicationController.class);
-	   	logger.info(lernerLicenseApplicationDto.toString());
-	   
-			return ResponseEntity.status(HttpStatus.CREATED).body(lernerApplicationService.addLernerLicenseApplication(lernerLicenseApplicationDto));
-		
-	}
+	private Logger logger=LoggerFactory.getLogger(LearnerLicenseApplicationController.class);
 	
-	@PostMapping(value = "/documents/upload",consumes = "multipart/form-data")
+	@Autowired // (required = true)
+	private LearnerLicenseApplicationService lernerApplicationService;
+	
+	
+
+	@PostMapping(value="/application",consumes = "multipart/form-data")
+	public ResponseEntity<?> llApplicationForm(@RequestParam String learnerLicenseApplicationDto, @RequestParam ArrayList<MultipartFile>files)
+	{
+		return ResponseEntity.status(HttpStatus.CREATED).body(lernerApplicationService.addLernerLicenseApplication(learnerLicenseApplicationDto,files));	
+	}
+}
+	
+	
+
+/*
+ * 
+ @PostMapping(value = "/documents/upload",consumes = "multipart/form-data")
 	public void upload(@RequestBody MultipartFile[]files) 
 	{
 		System.out.println("image controller image recieved");
@@ -61,9 +68,11 @@ public class LearnerLicenseApplicationController {
 		}
 	}
 
-}
-
-/*{
+} 
+ * 
+ * 
+ * 
+ * {
   "firstName": "rajdeep",
   "middleName": "shankar",
   "lastName": "sutar",
