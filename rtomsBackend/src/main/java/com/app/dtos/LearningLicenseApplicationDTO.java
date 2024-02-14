@@ -72,15 +72,6 @@ public class LearningLicenseApplicationDTO {
 	private Qualification qualification;
 
 	
-	
-//	private MultipartFile profilePhoto;
-//
-//	@JsonProperty(access = Access.WRITE_ONLY) // used during de-serialization
-//	private MultipartFile educationalDocument;
-//
-//	@JsonProperty(access = Access.WRITE_ONLY) // used during de-serialization
-//	private MultipartFile addressProof;
-
 
 	private Set <String> applicationTypes=new HashSet<>();
 	
