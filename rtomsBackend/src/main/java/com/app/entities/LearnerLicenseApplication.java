@@ -15,6 +15,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class LearnerLicenseApplication extends BaseEntity {
 	
 	@OneToOne
@@ -55,7 +56,7 @@ public class LearnerLicenseApplication extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "qualification")
     private Qualification qualification;
-    
+ /*   
     @Lob
     @Column(name = "profile_photo")
     private byte[] profilePhoto;
@@ -67,6 +68,11 @@ public class LearnerLicenseApplication extends BaseEntity {
     @Lob
     @Column(name = "address_proof")
     private byte[] addressProof;
+ */
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "document_id", referencedColumnName = "id")
+    private Document myDocument;
     
     @Column(name = "entry_time")
     private LocalDateTime entryTime;
@@ -85,6 +91,16 @@ public class LearnerLicenseApplication extends BaseEntity {
         this.applicationTypes.add(applicationType);
         applicationType.getLearnerLicenseApplications().add(this);
     }
+
+
+	@Override
+	public String toString() {
+		return "LearnerLicenseApplication [  firstName=" + firstName + ", middleName=" + middleName
+				+ ", lastName=" + lastName + ", mobileNumber=" + mobileNumber + ", postalAddress=" + postalAddress
+				+ ", gender=" + gender + ", bloodGroup=" + bloodGroup + ", dateOfBirth=" + dateOfBirth + ", rtoOffice="
+				+ rtoOffice + ", qualification=" + qualification + ", entryTime=" + entryTime + ", approvalTime="
+				+ approvalTime + "]";
+	}
     
     
 }
