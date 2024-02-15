@@ -79,21 +79,9 @@ public class LearnerLicenseApplication extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "qualification")
 	private Qualification qualification;
-	/*
-	 * @Lob
-	 * 
-	 * @Column(name = "profile_photo") private byte[] profilePhoto;
-	 * 
-	 * @Lob
-	 * 
-	 * @Column(name = "educational_document") private byte[] educationalDocument;
-	 * 
-	 * @Lob
-	 * 
-	 * @Column(name = "address_proof") private byte[] addressProof;
-	 */
+	
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name = "id", referencedColumnName = "id")
 	@MapsId("id") // Map id to the primary key of Document
 	private Document myDocument;

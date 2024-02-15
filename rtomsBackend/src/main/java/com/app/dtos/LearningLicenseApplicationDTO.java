@@ -86,10 +86,10 @@ public class LearningLicenseApplicationDTO {
 }
 
 /*
- * { "firstName": "rajdeep", "middleName": "shankar", "lastName": "sutar",
- * "mobileNumber": "9503842751", "userId": 1, "postalAddress": { "house": "A16",
- * "street": "mg road", "city": "hinjawadi", "state": "MH", "country": "India",
- * "zipCode": "411057" }, "gender": "MALE", "bloodGroup": "AB_POSITIVE",
- * "dateOfBirth": "2024-02-14", "rtoOffice": "KOLHAPUR", "qualification":
- * "BELOWSSC", "applicationTypes": [ "CAR","MOTORCYCLE" ] }
+ { "firstName": "rajdeep", "middleName": "shankar", "lastName": "sutar",
+  "mobileNumber": "9503842751", "userId": 1, "postalAddressDTO": { "house": "A16",
+  "street": "mg road", "city": "hinjawadi", "state": "MH", "country": "India",
+  "zipCode": "411057" }, "gender": "MALE", "bloodGroup": "AB_POSITIVE",
+  "dateOfBirth": "2024-02-14", "rtoOffice": "KOLHAPUR", "qualification":
+  "BELOWSSC", "applicationTypes": [ "CAR","MOTORCYCLE" ] }
  */
