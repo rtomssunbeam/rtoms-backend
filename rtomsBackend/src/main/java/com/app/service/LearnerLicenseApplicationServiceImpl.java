@@ -76,6 +76,7 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 		
 		PostalAddressDTO postalAddressDTO = learnerApplicationDTO.getPostalAddressDTO();
 		PostalAddress postalAddress = mapper.map(postalAddressDTO, PostalAddress.class);
+		
 //		System.out.println(learnerApplicationDTO);
 //		System.out.println(postalAddressDTO);
 //		System.out.println(postalAddress);

@@ -18,6 +18,10 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private Integer id;
+	
 	@NotBlank(message = "Email required!")
     @Email(message = "Please provide a valid email address")
     private String email;
