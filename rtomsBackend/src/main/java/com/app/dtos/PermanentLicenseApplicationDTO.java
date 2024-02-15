@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import com.app.enums.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.sunbeam.validation.FutureOrTwoWeeks;
+import com.app.validation.FutureOrTwoWeeks;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +32,7 @@ public class PermanentLicenseApplicationDTO {
 	@NotNull(message = "Learner application is required")
 	private Integer learnerApplicationId;
 
-	@FutureOrTwoWeeks(message = "Slot booking must be within the next two weeks")
+	@FutureOrTwoWeeks(message = "Slot booking must be within the next two weeks from present day")
 	private LocalDate slotBooking;
 	
 	@JsonProperty(access = Access.READ_ONLY)
