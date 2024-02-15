@@ -6,12 +6,13 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@ToString
 public class PostalAddressDTO {
 	
 	@NotBlank(message = "House is required")
@@ -29,5 +30,6 @@ public class PostalAddressDTO {
 	@NotBlank(message = "Zip code is required")
 	@Size(max = 10, message = "Zip code must be at most 10 characters")
 	private String zipCode;
+
 
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -19,6 +20,7 @@ import com.app.enums.BloodGroup;
 import com.app.enums.Gender;
 import com.app.enums.Qualification;
 import com.app.enums.RtoOffice;
+import com.app.enums.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -33,6 +35,10 @@ import lombok.ToString;
 @ToString
 public class LearningLicenseApplicationDTO {
 
+	public LearningLicenseApplicationDTO() {
+        this.status = Status.PENDING; // Set default value as PENDING during object creation
+    }
+	
 	@JsonProperty(access = Access.READ_ONLY) // used during serialization
 	private Integer id;
 
@@ -52,6 +58,7 @@ public class LearningLicenseApplicationDTO {
 	private String mobileNumber;
 
 	// used during de-serialization
+	@NotNull(message = "User ID is required")
 	private Integer userId;
 
 	private PostalAddressDTO postalAddressDTO;
@@ -71,40 +78,18 @@ public class LearningLicenseApplicationDTO {
 	@NotBlank(message = "Qualification is required")
 	private Qualification qualification;
 
+	private Set<String> applicationTypes = new HashSet<>();
 	
-
-	private Set <String> applicationTypes=new HashSet<>();
-	
-	
-	
-
+	@JsonProperty(access = Access.READ_ONLY)
+	private Status status;
 
 }
-
 
 /*
- {
-  "firstName": "rajdeep",
-  "middleName": "shankar",
-  "lastName": "sutar",
-  "mobileNumber": "9503842751",
-  "userId": 1,
-  "postalAddress": {
-    "house": "A16",
-    "street": "mg road",
-    "city": "hinjawadi",
-    "state": "MH",
-    "country": "India",
-    "zipCode": "411057"
-  },
-  "gender": "MALE",
-  "bloodGroup": "AB_POSITIVE",
-  "dateOfBirth": "2024-02-14",
-  "rtoOffice": "KOLHAPUR",
-  "qualification": "BELOWSSC",
-  "applicationTypes": [
-    "CAR","MOTORCYCLE"
-  ]
-}
+ * { "firstName": "rajdeep", "middleName": "shankar", "lastName": "sutar",
+ * "mobileNumber": "9503842751", "userId": 1, "postalAddress": { "house": "A16",
+ * "street": "mg road", "city": "hinjawadi", "state": "MH", "country": "India",
+ * "zipCode": "411057" }, "gender": "MALE", "bloodGroup": "AB_POSITIVE",
+ * "dateOfBirth": "2024-02-14", "rtoOffice": "KOLHAPUR", "qualification":
+ * "BELOWSSC", "applicationTypes": [ "CAR","MOTORCYCLE" ] }
  */
-

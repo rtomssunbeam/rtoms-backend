@@ -27,6 +27,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	public UserController() {
+		System.out.println("in ctor of " + getClass());
+	}
+
 	@PostMapping("/signUp")
 	public ResponseEntity<?>signUp(@RequestBody UserDTO user)
 	{
