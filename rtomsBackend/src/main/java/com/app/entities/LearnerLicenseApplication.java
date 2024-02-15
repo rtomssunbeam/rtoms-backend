@@ -55,7 +55,7 @@ public class LearnerLicenseApplication extends BaseEntity {
 	@Column(name = "mobile_number")
 	private String mobileNumber;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "postal_address_id", referencedColumnName = "id")
 	private PostalAddress postalAddress;
 

@@ -1,4 +1,4 @@
-package com.sunbeam.validation;
+package com.app.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
