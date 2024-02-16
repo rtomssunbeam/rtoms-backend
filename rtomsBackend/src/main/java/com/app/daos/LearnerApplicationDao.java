@@ -6,4 +6,6 @@ import com.app.entities.LearnerLicenseApplication;
 
 public interface LearnerApplicationDao extends JpaRepository<LearnerLicenseApplication, Integer> {
 
+	LearnerLicenseApplication findByUserId(Integer userId);
+
 }

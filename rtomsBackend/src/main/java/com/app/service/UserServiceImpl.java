@@ -9,15 +9,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.app.daos.LearnerApplicationDao;
+import com.app.daos.PermanentApplicationDao;
 import com.app.daos.UserDao;
+import com.app.dtos.LearningLicenseApplicationDTO;
+import com.app.dtos.LicenseApplicationDTO;
+import com.app.dtos.PermanentLicenseApplicationDTO;
 import com.app.dtos.UserDTO;
+import com.app.entities.BaseEntity;
+import com.app.entities.LearnerLicenseApplication;
+import com.app.entities.PermanentLicenseApplication;
 import com.app.entities.User;
 
 @Service
 public class UserServiceImpl implements UserService  {
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private LearnerApplicationDao learnerAppDao;
+	
+	@Autowired
+	private PermanentApplicationDao permanentAppDao;
+	
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -39,6 +55,30 @@ public class UserServiceImpl implements UserService  {
 	public List<User> getAllUsers() {
 		
 		return null;
+	}
+	
+	
+	@Override
+	@Transactional
+	public List<LicenseApplicationDTO> getMyApplications(Integer userId) {
+		
+		List<LicenseApplicationDTO>myApplications=new ArrayList<>();
+		LearnerLicenseApplication learnerApplication = learnerAppDao.findByUserId(userId);
+		PermanentLicenseApplication permanentApplication = permanentAppDao.findByUserId(userId);
+		System.out.println(learnerApplication);
+		
+		if(learnerApplication!=null) {
+			LearningLicenseApplicationDTO learnerApp= mapper.map(learnerApplication, LearningLicenseApplicationDTO.class);
+			System.out.println(learnerApplication);
+			myApplications.add(new LicenseApplicationDTO(learnerApp.getId(),"Learner License",learnerApp.getStatus()));
+		}
+		if(permanentApplication !=null)
+		{
+			PermanentLicenseApplicationDTO permanentApp = mapper.map(permanentApplication, PermanentLicenseApplicationDTO.class);
+			myApplications.add(new LicenseApplicationDTO(permanentApp .getId(),"Permanent License",permanentApp.getStatus()));
+		}
+		
+		return myApplications;
 	}
 	
 

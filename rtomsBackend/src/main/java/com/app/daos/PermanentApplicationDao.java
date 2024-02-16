@@ -6,4 +6,6 @@ import com.app.entities.PermanentLicenseApplication;
 
 public interface PermanentApplicationDao extends JpaRepository<PermanentLicenseApplication, Integer> {
 
+	PermanentLicenseApplication findByUserId(Integer userId);
+
 }
