@@ -17,24 +17,29 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.daos.LearnerApplicationDao;
+import com.app.daos.OwnerDao;
 import com.app.daos.UserDao;
 import com.app.dtos.ApplicationTypeDTO;
 import com.app.dtos.DocumentDTO;
 import com.app.dtos.LearningLicenseApplicationDTO;
+import com.app.dtos.OwnerDTO;
 import com.app.dtos.PostalAddressDTO;
 import com.app.dtos.UserDTO;
 import com.app.entities.Document;
 import com.app.entities.LearnerLicenseApplication;
+import com.app.entities.Owner;
 import com.app.entities.PostalAddress;
 import com.app.entities.User;
 import com.app.enums.DocumentName;
 
 @Service
-@Transactional
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private OwnerDao ownerDao;
 	
 	@Autowired
 	private LearnerApplicationDao learnerApplicationDao;
@@ -92,6 +97,21 @@ public class AdminServiceImpl implements AdminService {
 			
 		
 		return null;
+		
+	}
+
+
+	@Override
+	public List<OwnerDTO> getAllOwners() {
+		List<Owner>allOwners=ownerDao.findAll();
+		
+		List<OwnerDTO>owners=allOwners.stream()
+//		.filter(owner->!owner.getVehicles().isEmpty())
+		.map(owner->mapper.map(owner, OwnerDTO.class))
+		.collect(Collectors.toList());
+		
+		return owners;
+
 		
 	}
 }

@@ -3,6 +3,9 @@ package com.app.dtos;
 import com.app.enums.PowerSource;
 import com.app.enums.VehicleStatus;
 import com.app.enums.VehicleType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -26,6 +29,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class VehicleDTO {
 
+	@JsonProperty(access=Access.READ_ONLY)
+	private Integer id;
+	
     @NotBlank
     @Size(max = 50)
     private String modelName;
@@ -62,12 +68,29 @@ public class VehicleDTO {
     @NotNull
     private PowerSource powerSource;
 
-    @NotNull
-    private MultipartFile vehiclePhoto;
+//    @NotNull
+//    private MultipartFile vehiclePhoto;
 
     @NotNull
     private VehicleStatus status;
 
     @NotNull
-    private Integer ownerId; 
+    private String adharNo; 
 }
+
+/*
+{
+	  "modelName": "Harrter",
+	  "brand": "Tata",
+	  "colour": "black",
+	  "chassisNumber": "123456789",
+	  "registrationNumber": "MH10DH4557",
+	  "ownership": "FIRST",
+	  "dateOfManufacture": "2024-02-16",
+	  "registrationDate": "2024-02-16",
+	  "vehicleType": "CAR",
+	  "powerSource": "DIESEL",
+	  "status": "ACTIVE",
+	  "adharNo": 218635357770
+	}
+*/

@@ -50,6 +50,13 @@ public class AdminController {
 		return ResponseEntity.status(201).contentType(MediaType.valueOf("image/jpeg")).body(adminService.getDocuments(applicationId,name));
 	}
 	
+	@GetMapping("/getAllOwners") //get documents of single application
+	public ResponseEntity<?>getOwners()
+
+	{
+		return ResponseEntity.status(201).body(adminService.getAllOwners());
+	}
+	
 	
 	
 	
