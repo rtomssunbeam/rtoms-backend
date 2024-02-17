@@ -33,6 +33,7 @@ import com.app.entities.User;
 import com.app.enums.DocumentName;
 
 @Service
+@Transactional
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
@@ -113,6 +114,22 @@ public class AdminServiceImpl implements AdminService {
 		return owners;
 
 		
+	}
+
+
+	@Override
+	public LearningLicenseApplicationDTO getLearnerApplicationDetails(Integer learnerAppId) {
+		LearnerLicenseApplication learnerLicenseAppDetails =learnerApplicationDao.findById(learnerAppId).orElseThrow();
+		LearningLicenseApplicationDTO applicationDTO = mapper.map(learnerLicenseAppDetails, LearningLicenseApplicationDTO.class);
+        PostalAddress postalAddress = learnerLicenseAppDetails.getPostalAddress();
+        if (postalAddress != null) {
+            PostalAddressDTO postalAddressDTO = mapper.map(postalAddress, PostalAddressDTO.class);
+            System.out.println(postalAddressDTO);
+            applicationDTO.setPostalAddressDTO(postalAddressDTO);
+            applicationDTO.setUserId(learnerLicenseAppDetails.getUser().getId());
+        }
+        
+		return applicationDTO;
 	}
 }
 

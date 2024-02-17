@@ -16,6 +16,7 @@ public interface AdminService {
 	List<LearningLicenseApplicationDTO> getAllLearnerLicensePaginated(int pageNumber);
 	byte[] getDocuments(Integer applicationId, DocumentName name);
 	List<OwnerDTO> getAllOwners();
+	LearningLicenseApplicationDTO getLearnerApplicationDetails(Integer learnerAppId);
 
 	
 	
