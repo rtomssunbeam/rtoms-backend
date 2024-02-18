@@ -1,4 +1,4 @@
-package com.app.service;
+package com.app.daos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

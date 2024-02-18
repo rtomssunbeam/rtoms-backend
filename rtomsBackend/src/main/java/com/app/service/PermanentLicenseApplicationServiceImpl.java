@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.daos.LearnerApplicationDao;
+import com.app.daos.PermanentApplicationDao;
 import com.app.daos.UserDao;
 import com.app.dtos.ApiResponse;
 import com.app.dtos.PermanentLicenseApplicationDTO;

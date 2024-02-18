@@ -33,7 +33,8 @@ public class LearnerLicenseApplication extends BaseEntity {
 		this.dateOfBirth = dateOfBirth;
 		this.rtoOffice = rtoOffice;
 		this.qualification = qualification;
-		this.entryTime = LocalDateTime.now();;
+		this.entryTime = LocalDateTime.now();
+		;
 		this.approvalTime = approvalTime;
 		this.validTime = validTime;
 		this.status = status;
@@ -56,7 +57,8 @@ public class LearnerLicenseApplication extends BaseEntity {
 	private String mobileNumber;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "postal_address_id", referencedColumnName = "id")
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	@MapsId("id") // Map id to the primary key of PostalAddress
 	private PostalAddress postalAddress;
 
 	@Column(name = "gender")
@@ -77,22 +79,11 @@ public class LearnerLicenseApplication extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "qualification")
 	private Qualification qualification;
-	/*
-	 * @Lob
-	 * 
-	 * @Column(name = "profile_photo") private byte[] profilePhoto;
-	 * 
-	 * @Lob
-	 * 
-	 * @Column(name = "educational_document") private byte[] educationalDocument;
-	 * 
-	 * @Lob
-	 * 
-	 * @Column(name = "address_proof") private byte[] addressProof;
-	 */
+	
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "document_id", referencedColumnName = "id")
+	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	@MapsId("id") // Map id to the primary key of Document
 	private Document myDocument;
 
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -100,10 +91,10 @@ public class LearnerLicenseApplication extends BaseEntity {
 	private Set<ApplicationType> applicationTypes = new HashSet<>();
 
 	@PrePersist
-    public void prePersist() {
-        this.entryTime = LocalDateTime.now(); // Set entryTime to the current server time before persisting the entity
-    }
-	
+	public void prePersist() {
+		this.entryTime = LocalDateTime.now(); // Set entryTime to the current server time before persisting the entity
+	}
+
 	@Column(name = "entry_time")
 	private LocalDateTime entryTime;
 

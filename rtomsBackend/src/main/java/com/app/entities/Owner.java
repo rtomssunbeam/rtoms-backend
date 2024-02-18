@@ -64,7 +64,7 @@ public class Owner extends BaseEntity {
     @Column(name = "entry_time")
     private LocalDateTime entryTime;
     
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Vehicle> vehicles = new ArrayList<>();
     
     public String addVehicle(Vehicle vehicle)

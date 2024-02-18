@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -47,6 +48,14 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(RuntimeException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public ApiResponse handleAnyException(RuntimeException e) {
+		System.out.println("in catch-all " + e);
+		return new ApiResponse(e.getMessage());
+	}
+	
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ApiResponse handleAnyException(ConstraintViolationException e) {
 		System.out.println("in catch-all " + e);
 		return new ApiResponse(e.getMessage());
 	}

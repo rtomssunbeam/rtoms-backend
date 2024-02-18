@@ -63,6 +63,7 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 	{
 		LearningLicenseApplicationDTO learnerApplicationDTO = null;
 		Document document = null;
+		PostalAddressDTO postalAddressDTO = null;
 		try {
 			document = new Document(files.get(0).getBytes(), files.get(1).getBytes(), files.get(2).getBytes());
 			learnerApplicationDTO = objMapper.readValue(learnerApplicationString, LearningLicenseApplicationDTO.class);
@@ -74,8 +75,11 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 		Integer userId = learnerApplicationDTO.getUserId();
 		User user = userDao.findById(userId).orElseThrow();
 		
-		PostalAddressDTO postalAddressDTO = learnerApplicationDTO.getPostalAddressDTO();
-		PostalAddress postalAddress = mapper.map(postalAddressDTO, PostalAddress.class);
+		
+		System.out.println(learnerApplicationDTO.getPostalAddressDTO());
+		
+		
+		PostalAddress postalAddress = mapper.map(learnerApplicationDTO.getPostalAddressDTO(), PostalAddress.class);
 		
 //		System.out.println(learnerApplicationDTO);
 //		System.out.println(postalAddressDTO);
@@ -96,6 +100,7 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 //		applicationTypes.stream().forEach(type->learnerApp.addType(type));
 
 		for (ApplicationType eachType : applicationTypes) {
+			System.out.println(eachType);
 			learnerApp.addType(eachType);
 		}
 

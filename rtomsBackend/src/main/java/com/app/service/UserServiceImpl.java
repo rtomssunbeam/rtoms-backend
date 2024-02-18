@@ -42,14 +42,7 @@ public class UserServiceImpl implements UserService  {
 	}
 	
 
-	@Override
-	public List<UserDTO> getAllUsersPaginated(int pageNumber) {
-		
-		Pageable pageable=PageRequest.of(pageNumber, 10);
-		List<User>usersList=userDao.findAll(pageable).getContent();
-		
-		return usersList.stream().map(user->mapper.map(user,UserDTO.class)).collect(Collectors.toList());
-	}
+	
 
 	
 

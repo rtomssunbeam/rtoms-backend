@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 
 import com.app.enums.Status;
+import com.app.validation.FutureOrTwoWeeks;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.app.validation.FutureOrTwoWeeks;
 
 import lombok.Getter;
 import lombok.Setter;

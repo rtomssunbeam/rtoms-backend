@@ -42,12 +42,34 @@ public class OwnerDTO {
     @Past(message = "Date of birth must be in the past")
     private LocalDate dob;
 
-    private PostalAddressDTO postalAddress;
+    private PostalAddressDTO postalAddressDto;
 
-    @NotNull(message = "Address proof document is required")
-    private MultipartFile addressProofDoc;
-
-    @NotNull(message = "Profile photo is required")
-    private MultipartFile profilePhoto;
-    
 }
+
+
+//    private MultipartFile addressProofDoc;
+//    private MultipartFile profilePhoto;
+    
+   /*
+    {
+  "firstName": "rajdeep",
+  "middleName": "shankar",
+  "lastName": "sutar",
+  "gender": "MALE",
+  "adharcardNo": "218635357770",
+  "mobileNo": "9503842751",
+  "email": "raj@gmail.com",
+  "dob": "2000-07-12",
+  "postalAddressDto": {
+    "house": "Plot49 DattaPrasad",
+    "street": "RamaUdyanPhase3" ,
+    "city": "Miraj",
+    "state": "MH",
+    "country": "India",
+    "zipCode": "416410"
+  }
+}
+    * */
+    
+    
+

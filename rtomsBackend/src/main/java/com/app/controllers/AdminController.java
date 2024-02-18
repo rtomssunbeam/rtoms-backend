@@ -3,14 +3,19 @@ package com.app.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.daos.LearnerApplicationDao;
+import com.app.dtos.LearningLicenseApplicationDTO;
 import com.app.dtos.UserDTO;
+import com.app.enums.DocumentName;
+import com.app.service.AdminService;
 import com.app.service.LearnerLicenseApplicationService;
 import com.app.service.UserService;
 
@@ -22,17 +27,43 @@ public class AdminController {
 	private LearnerLicenseApplicationService lernerApplicationService;
 	
 	@Autowired
-	private UserService userService;
+	private AdminService adminService;
 	
-	@GetMapping("/getUsers/peginate")
+	@GetMapping("/getUsers")
 	public ResponseEntity<?>getAllUsers(@RequestParam(defaultValue = "0", required = false) int pageNumber )
 	{
-		List<UserDTO>usersList=userService.getAllUsersPaginated(pageNumber);
-		return ResponseEntity.status(201).body(userService.getAllUsersPaginated(pageNumber));
+		return ResponseEntity.status(200).body(adminService.getAllUsersPaginated(pageNumber));
 		
 	}
 	
+	@GetMapping("/getAllLearnerApplications")
+	public ResponseEntity<?>getAllLearnerApplications(@RequestParam(defaultValue = "0", required = false) int pageNumber )
+
+	{
+		return ResponseEntity.status(200).body(adminService.getAllLearnerLicensePaginated(pageNumber));
+	}
 	
+	
+	@GetMapping("/getDocuments") //get documents of single application
+	public ResponseEntity<?>getAllLearnerApplications(@RequestParam Integer applicationId,DocumentName name)
+
+	{
+		return ResponseEntity.status(200).contentType(MediaType.valueOf("image/jpeg")).body(adminService.getDocuments(applicationId,name));
+	}
+	
+	@GetMapping("/getAllOwners") //get documents of single application
+	public ResponseEntity<?>getOwners()
+
+	{
+		return ResponseEntity.status(200).body(adminService.getAllOwners());
+	}
+	
+	@GetMapping("/getLearnerApplicationDetails/{learnerAppId}")
+	public ResponseEntity<?>getLearnerApplicationDetails(@PathVariable Integer learnerAppId)
+
+	{
+		return ResponseEntity.status(200).body(adminService.getLearnerApplicationDetails(learnerAppId));
+	}	
 	
 	
 }
