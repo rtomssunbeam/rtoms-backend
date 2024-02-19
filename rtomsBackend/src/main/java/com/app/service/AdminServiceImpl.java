@@ -33,6 +33,7 @@ import com.app.entities.User;
 import com.app.enums.DocumentName;
 
 @Service
+@Transactional
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired

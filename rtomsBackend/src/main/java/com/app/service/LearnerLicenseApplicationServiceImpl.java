@@ -1,6 +1,8 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +28,8 @@ import com.app.entities.Document;
 import com.app.entities.LearnerLicenseApplication;
 import com.app.entities.PostalAddress;
 import com.app.entities.User;
+import com.app.enums.Status;
+import com.app.enums.TestResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -51,6 +55,7 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 
 	@Override
 	public ApiResponse addLernerLicenseApplication(String learnerApplicationString, ArrayList<MultipartFile> files)
+
 
 	/*
 	 * Why throws keyword ? Therefore, even though Spring Boot simplifies exception
@@ -97,17 +102,42 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 		learnerApplicationDTO.getApplicationTypes()
 				.forEach(s -> applicationTypes.add(applicationTypeDao.findByApplicationType(s)));
 
-//		applicationTypes.stream().forEach(type->learnerApp.addType(type));
 
 		for (ApplicationType eachType : applicationTypes) {
 			System.out.println(eachType);
 			learnerApp.addType(eachType);
 		}
-
-//		logger.info(learnerApp.getApplicationTypes().toString());
-//		logger.info(learnerApp.toString());
 		learnerAppDao.save(learnerApp);
 		return new ApiResponse("Learning Application submitted successfully...!");
 	}
+
+	
+	@Override
+	public ApiResponse updateStatus(Integer learnerAppId,Status status) {
+		
+		ApiResponse resp=new ApiResponse("status updatation failed");
+		
+		LearnerLicenseApplication learnerApp =learnerAppDao.findById(learnerAppId).orElseThrow();
+		
+		
+			if(learnerApp.getStatus().toString().equals(Status.PENDING.toString()))
+			{
+				if(learnerApp.getResult().equals(TestResult.PASS))
+				{
+					learnerApp.setStatus(status);
+					
+					if(status.equals(Status.APPROVED))
+					{
+						learnerApp.setApprovalTime(LocalDateTime.now());
+						learnerApp.setValidTill(LocalDateTime.now().plusMonths(6));
+					}			
+					learnerAppDao.save(learnerApp);
+					resp.setMsg("Learner License Status Updated for application id : "+learnerApp.getId());
+				}
+			}
+		
+		return resp;
+	}
+	
 
 }

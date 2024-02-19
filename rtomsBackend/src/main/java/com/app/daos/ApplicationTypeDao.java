@@ -6,5 +6,7 @@ import com.app.entities.ApplicationType;
 
 public interface ApplicationTypeDao extends JpaRepository<ApplicationType, Integer> {
 
-	ApplicationType findByApplicationType(String applicationType);
+	
+
+	ApplicationType findByApplicationType(String s);
 }
