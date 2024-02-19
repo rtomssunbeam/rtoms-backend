@@ -15,7 +15,7 @@ public interface AdminService {
 	List<UserDTO> getAllUsersPaginated(int pageNumber);
 	List<LearningLicenseApplicationDTO> getAllLearnerLicensePaginated(int pageNumber);
 	byte[] getDocuments(Integer applicationId, DocumentName name);
-	List<OwnerDTO> getAllOwners();
+	List<OwnerDTO> getAllOwners(int pageNumber);
 
 	
 	

@@ -24,6 +24,7 @@ import com.app.service.UserService;
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3001")
 public class AdminController {
 
 	@Autowired
@@ -35,7 +36,7 @@ public class AdminController {
 	@GetMapping("/getUsers")
 	public ResponseEntity<?>getAllUsers(@RequestParam(defaultValue = "0", required = false) int pageNumber )
 	{
-		return ResponseEntity.status(201).body(adminService.getAllUsersPaginated(pageNumber));
+		return ResponseEntity.status(200).body(adminService.getAllUsersPaginated(pageNumber));
 		
 	}
 	
@@ -43,22 +44,30 @@ public class AdminController {
 	public ResponseEntity<?>getAllLearnerApplications(@RequestParam(defaultValue = "0", required = false) int pageNumber )
 
 	{
-		return ResponseEntity.status(201).body(adminService.getAllLearnerLicensePaginated(pageNumber));
+		return ResponseEntity.status(200).body(adminService.getAllLearnerLicensePaginated(pageNumber));
+	}
+	
+	@GetMapping("/getLearnerApplication") //get documents of single application
+	public ResponseEntity<?>getLearnerApplication(@RequestParam String applicationId)
+
+	{
+		Integer appId=Integer.valueOf(applicationId);
+		return ResponseEntity.status(200).body(learnerApplicationService.getApplication(appId));
 	}
 	
 	
 	@GetMapping("/getDocuments") //get documents of single application
-	public ResponseEntity<?>getAllLearnerApplications(@RequestParam Integer applicationId,DocumentName name)
+	public ResponseEntity<?>getDocuments(@RequestParam Integer applicationId,DocumentName name)
 
 	{
 		return ResponseEntity.status(201).contentType(MediaType.valueOf("image/jpeg")).body(adminService.getDocuments(applicationId,name));
 	}
 	
 	@GetMapping("/getAllOwners") //get documents of single application
-	public ResponseEntity<?>getOwners()
+	public ResponseEntity<?>getOwners(@RequestParam(defaultValue = "0", required = false) int pageNumber)
 
 	{
-		return ResponseEntity.status(201).body(adminService.getAllOwners());
+		return ResponseEntity.status(200).body(adminService.getAllOwners(pageNumber));
 	}
 	
 	@PutMapping("/learnerApplication/updateStatus")
@@ -66,6 +75,8 @@ public class AdminController {
 	{
 		return ResponseEntity.status(200).body(learnerApplicationService.updateStatus(LearnerAppId,status));
 	}
+	
+	
 	
 	
 }

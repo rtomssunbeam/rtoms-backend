@@ -103,8 +103,11 @@ public class AdminServiceImpl implements AdminService {
 
 
 	@Override
-	public List<OwnerDTO> getAllOwners() {
-		List<Owner>allOwners=ownerDao.findAll();
+	public List<OwnerDTO> getAllOwners(int pageNumber) {
+		
+		Pageable pageable=PageRequest.of(pageNumber, 10);
+		
+		List<Owner>allOwners=ownerDao.findAll(pageable).getContent();
 		
 		List<OwnerDTO>owners=allOwners.stream()
 //		.filter(owner->!owner.getVehicles().isEmpty())

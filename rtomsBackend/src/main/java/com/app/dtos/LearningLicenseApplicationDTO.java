@@ -21,6 +21,7 @@ import com.app.enums.Gender;
 import com.app.enums.Qualification;
 import com.app.enums.RtoOffice;
 import com.app.enums.Status;
+import com.app.enums.TestResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -82,6 +83,8 @@ public class LearningLicenseApplicationDTO {
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private Status status;
+	
+	private TestResult result;
 
 }
 

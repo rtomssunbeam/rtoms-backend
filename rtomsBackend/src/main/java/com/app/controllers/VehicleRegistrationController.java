@@ -64,4 +64,11 @@ public class VehicleRegistrationController {
 	}
 	
 	
+	@GetMapping(value="/getVehiclesByOwnerId")
+	ResponseEntity<?>getVehiclesByOwnerId(@RequestParam String OwnerAdharNo)
+	{
+		return ResponseEntity.status(200).body(vehicleService.getVehiclesByOwnerAdharNo(OwnerAdharNo));
+	}
+	
+	
 }
