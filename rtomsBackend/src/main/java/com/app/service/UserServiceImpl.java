@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.app.daos.UserDao;
+import com.app.dtos.SignInDTO;
 import com.app.dtos.UserDTO;
 import com.app.entities.User;
 
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService  {
 	}
 	
 	@Override
-	public User authenticate(UserDTO userDto) {
+	public User authenticate(SignInDTO userDto) {
 		
 		return userDao.findByEmail(mapper.map(userDto, User.class).getEmail());
 	}

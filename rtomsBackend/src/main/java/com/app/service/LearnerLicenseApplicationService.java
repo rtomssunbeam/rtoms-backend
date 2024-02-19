@@ -9,5 +9,6 @@ import com.app.dtos.ApiResponse;
 public interface LearnerLicenseApplicationService {
 
 	public ApiResponse addLernerLicenseApplication(String learningApplicationDTO, ArrayList<MultipartFile> files);
+//	public ApiResponse addLernerLicenseApplication(String learningApplicationDTO, MultipartFile[] files);
 
 }
