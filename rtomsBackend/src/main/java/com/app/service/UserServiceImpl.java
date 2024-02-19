@@ -17,6 +17,7 @@ import com.app.daos.UserDao;
 import com.app.dtos.LearningLicenseApplicationDTO;
 import com.app.dtos.LicenseApplicationDTO;
 import com.app.dtos.PermanentLicenseApplicationDTO;
+import com.app.dtos.SignInDTO;
 import com.app.dtos.UserDTO;
 import com.app.entities.BaseEntity;
 import com.app.entities.LearnerLicenseApplication;
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService  {
 	}
 	
 	@Override
-	public User authenticate(UserDTO userDto) {
+	public User authenticate(SignInDTO userDto) {
 		
 		return userDao.findByEmail(mapper.map(userDto, User.class).getEmail());
 	}

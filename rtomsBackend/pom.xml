@@ -83,7 +83,29 @@
 			<artifactId>commons-lang3</artifactId>
 			<!-- <version>3.14.0</version> -->
 		</dependency>
-	</dependencies>
+		
+		
+		
+		<!-- JavaMail API -->
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+    </dependency>
+
+    <!-- Spring Boot Starter for JavaMail -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+	
+	
+	<!-- Spring Boot Starter AOP (for aspects such as @Scheduled) -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+
+</dependencies>
 
 	<build>
 		<plugins>

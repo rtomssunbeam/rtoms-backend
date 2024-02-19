@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,11 +41,12 @@ public class AdminController {
 		
 	}
 	
-	@GetMapping("/getLearnerApplications")
+	@GetMapping("/getAllLearnerApplications")
 	public ResponseEntity<?>getAllLearnerApplications(@RequestParam(defaultValue = "0", required = false) int pageNumber )
 
 	{
 		return ResponseEntity.status(200).body(adminService.getAllLearnerLicensePaginated(pageNumber));
+
 	}
 	
 	@GetMapping("/getLearnerApplication") //get documents of single application
@@ -53,6 +55,7 @@ public class AdminController {
 	{
 		Integer appId=Integer.valueOf(applicationId);
 		return ResponseEntity.status(200).body(learnerApplicationService.getApplication(appId));
+
 	}
 	
 	
@@ -60,13 +63,14 @@ public class AdminController {
 	public ResponseEntity<?>getDocuments(@RequestParam Integer applicationId,DocumentName name)
 
 	{
-		return ResponseEntity.status(201).contentType(MediaType.valueOf("image/jpeg")).body(adminService.getDocuments(applicationId,name));
+		return ResponseEntity.status(200).contentType(MediaType.valueOf("image/jpeg")).body(adminService.getDocuments(applicationId,name));
 	}
 	
 	@GetMapping("/getAllOwners") //get documents of single application
 	public ResponseEntity<?>getOwners(@RequestParam(defaultValue = "0", required = false) int pageNumber)
 
 	{
+
 		return ResponseEntity.status(200).body(adminService.getAllOwners(pageNumber));
 	}
 	
@@ -74,9 +78,15 @@ public class AdminController {
 	public ResponseEntity<?>updateLearnerAppStatus(@RequestParam Integer LearnerAppId,Status status)
 	{
 		return ResponseEntity.status(200).body(learnerApplicationService.updateStatus(LearnerAppId,status));
+
 	}
 	
-	
+	@GetMapping("/getLearnerApplicationDetails/{learnerAppId}")
+	public ResponseEntity<?>getLearnerApplicationDetails(@PathVariable Integer learnerAppId)
+
+	{
+		return ResponseEntity.status(200).body(adminService.getLearnerApplicationDetails(learnerAppId));
+	}	
 	
 	
 }

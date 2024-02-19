@@ -118,6 +118,22 @@ public class AdminServiceImpl implements AdminService {
 
 		
 	}
+
+
+	@Override
+	public LearningLicenseApplicationDTO getLearnerApplicationDetails(Integer learnerAppId) {
+		LearnerLicenseApplication learnerLicenseAppDetails =learnerApplicationDao.findById(learnerAppId).orElseThrow();
+		LearningLicenseApplicationDTO applicationDTO = mapper.map(learnerLicenseAppDetails, LearningLicenseApplicationDTO.class);
+        PostalAddress postalAddress = learnerLicenseAppDetails.getPostalAddress();
+        if (postalAddress != null) {
+            PostalAddressDTO postalAddressDTO = mapper.map(postalAddress, PostalAddressDTO.class);
+            System.out.println(postalAddressDTO);
+            applicationDTO.setPostalAddressDTO(postalAddressDTO);
+            applicationDTO.setUserId(learnerLicenseAppDetails.getUser().getId());
+        }
+        
+		return applicationDTO;
+	}
 }
 
 //Below method fetches postal address

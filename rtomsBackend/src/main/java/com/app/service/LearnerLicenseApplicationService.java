@@ -11,6 +11,7 @@ import com.app.enums.Status;
 public interface LearnerLicenseApplicationService {
 
 	public ApiResponse addLernerLicenseApplication(String learningApplicationDTO, ArrayList<MultipartFile> files);
+//	public ApiResponse addLernerLicenseApplication(String learningApplicationDTO, MultipartFile[] files);
 
 	public ApiResponse updateStatus(Integer learnerAppId,Status status);
 
