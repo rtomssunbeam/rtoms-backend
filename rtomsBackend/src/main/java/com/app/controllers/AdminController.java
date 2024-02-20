@@ -58,6 +58,7 @@ public class AdminController {
 		return ResponseEntity.status(200).body(adminService.getAllOwners());
 	}
 	
+<<<<<<< HEAD
 	@GetMapping("/getLearnerApplicationDetails/{learnerAppId}")
 	public ResponseEntity<?>getLearnerApplicationDetails(@PathVariable Integer learnerAppId)
 
@@ -65,5 +66,7 @@ public class AdminController {
 		return ResponseEntity.status(200).body(adminService.getLearnerApplicationDetails(learnerAppId));
 	}	
 	
+=======
+>>>>>>> b53290a722e59cafe81b29a80f3f7aa78c20ad50
 	
 }
