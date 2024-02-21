@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/lernerLicense")
 @Slf4j
 @Validated
+@CrossOrigin(origins="http://localhost:3000")
 public class LearnerLicenseApplicationController {
 	
 
@@ -47,6 +49,11 @@ public class LearnerLicenseApplicationController {
 	@PostMapping(value="/application",consumes = "multipart/form-data")
 	public ResponseEntity<?> llApplicationForm(@RequestParam String learnerLicenseApplicationDto, @RequestParam ArrayList<MultipartFile>files)
 	{
+		
+		logger.info(learnerLicenseApplicationDto);
+//		System.out.println(learnerLicenseApplicationDto);
+		if (files!=null)
+			System.out.println("\n files received");
 		return ResponseEntity.status(HttpStatus.CREATED).body(lernerApplicationService.addLernerLicenseApplication(learnerLicenseApplicationDto,files));	
 	}
 }

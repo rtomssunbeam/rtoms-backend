@@ -64,6 +64,9 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 		LearningLicenseApplicationDTO learnerApplicationDTO = null;
 		Document document = null;
 		PostalAddressDTO postalAddressDTO = null;
+//		MultipartFile file1=learnerApplicationString.valueOf();
+//		files.add(0,));
+		
 		try {
 			document = new Document(files.get(0).getBytes(), files.get(1).getBytes(), files.get(2).getBytes());
 			learnerApplicationDTO = objMapper.readValue(learnerApplicationString, LearningLicenseApplicationDTO.class);
