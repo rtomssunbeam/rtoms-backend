@@ -24,6 +24,14 @@ public class PermanentLicenseApplicationDTO {
 
 	@JsonProperty(access = Access.READ_ONLY) // used during serialization
 	private Integer id;
+	
+	@JsonProperty(access = Access.READ_ONLY) // used during serialization
+	private String firstName;
+	
+	@JsonProperty(access = Access.READ_ONLY) // used during serialization
+	private String LastName;
+	
+	
 
 	@NotNull(message = "User ID is required")
 	private Integer userId;

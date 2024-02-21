@@ -49,6 +49,15 @@ public class AdminController {
 
 	}
 	
+	@GetMapping("/getAllPermanentApplications")
+	public ResponseEntity<?>getAllPermanentApplications(@RequestParam(defaultValue = "0", required = false) int pageNumber )
+
+	{
+		return ResponseEntity.status(200).body(adminService.getAllPermanentLicensePaginated(pageNumber));
+
+	}
+	
+	
 	@GetMapping("/getLearnerApplication") //get documents of single application
 	public ResponseEntity<?>getLearnerApplication(@RequestParam String applicationId)
 

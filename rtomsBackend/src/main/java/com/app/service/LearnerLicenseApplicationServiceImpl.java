@@ -143,6 +143,13 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 					{
 						learnerApp.setApprovalTime(LocalDateTime.now());
 						learnerApp.setValidTill(LocalDateTime.now().plusMonths(6));
+						
+						SimpleMailMessage mail = new SimpleMailMessage();
+						mail.setSubject("Learning License Approved!");
+						mail.setText("Dear citizen your Learning License has been aprooved today. Please apply for learning license within 6 month from now. Thanks and regards!"
+								+ "you can download your license from above link - http://localhost:3000/GetELearningLicense ");
+						mail.setTo(learnerApp.getUser().getEmail());
+						mailSender.send(mail);		
 					}			
 					learnerAppDao.save(learnerApp);
 					resp.setMsg("Learner License Status Updated for application id : "+learnerApp.getId());

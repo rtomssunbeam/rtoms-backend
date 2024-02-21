@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.PageRequest;
@@ -16,27 +17,35 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.controllers.LearnerLicenseApplicationController;
 import com.app.daos.LearnerApplicationDao;
 import com.app.daos.OwnerDao;
+import com.app.daos.PermanentApplicationDao;
 import com.app.daos.UserDao;
 import com.app.daos.VehicleDao;
 import com.app.dtos.ApplicationTypeDTO;
 import com.app.dtos.DocumentDTO;
 import com.app.dtos.LearningLicenseApplicationDTO;
 import com.app.dtos.OwnerDTO;
+import com.app.dtos.PermanentLicenseApplicationDTO;
 import com.app.dtos.PostalAddressDTO;
 import com.app.dtos.UserDTO;
 import com.app.dtos.VehicleDTO;
 import com.app.entities.Document;
 import com.app.entities.LearnerLicenseApplication;
 import com.app.entities.Owner;
+import com.app.entities.PermanentLicenseApplication;
 import com.app.entities.PostalAddress;
 import com.app.entities.User;
 import com.app.entities.Vehicle;
 import com.app.enums.DocumentName;
 
+import ch.qos.logback.classic.Logger;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
 @Transactional
+@Slf4j
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
@@ -48,12 +57,17 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private LearnerApplicationDao learnerApplicationDao;
 	
+	@Autowired
+	private PermanentApplicationDao permanentApplicationDao;
+	
 	
 	@Autowired
 	private ModelMapper mapper;
 	
 	@Autowired
 	private VehicleDao vehicleDao;
+	
+	private org.slf4j.Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
 	@Override
 	public List<UserDTO> getAllUsersPaginated(int pageNumber) {
@@ -149,8 +163,41 @@ public class AdminServiceImpl implements AdminService {
 		if(vehicle!=null)
 		{
 			return mapper.map(vehicle, VehicleDTO.class);
+			
 		}
 		return null;
+	}
+
+
+	@Override
+	public List<PermanentLicenseApplicationDTO> getAllPermanentLicensePaginated(int pageNumber) {
+		Pageable pageable=PageRequest.of(pageNumber, 10);
+		
+		List<PermanentLicenseApplication>permanentAppList=permanentApplicationDao.findAllByOrderBySlotBookingAsc(pageable);
+		
+		logger.info(permanentAppList.toString());
+		
+		if(permanentAppList.size()>0) {
+		List<PermanentLicenseApplicationDTO>permanantDtoList=permanentAppList.stream().map(each->mapper.map(permanentAppList, PermanentLicenseApplicationDTO.class))
+		.collect(Collectors.toList());
+		
+		for(PermanentLicenseApplicationDTO eachDtoObj : permanantDtoList)
+		{
+			for(PermanentLicenseApplication eachPermanentApp : permanentAppList)
+			{
+				eachDtoObj.setFirstName(eachPermanentApp.getLearnerApplication().getFirstName());
+				eachDtoObj.setLastName(eachPermanentApp.getLearnerApplication().getLastName());
+				eachDtoObj.setLearnerApplicationId(eachPermanentApp.getLearnerApplication().getId());
+				eachDtoObj.setUserId(eachPermanentApp.getUser().getId());
+				eachDtoObj.setId(eachPermanentApp.getId());
+				eachDtoObj.setSlotBooking(eachPermanentApp.getSlotBooking());
+				eachDtoObj.setStatus(eachPermanentApp.getStatus());
+			}
+		}
+		logger.info(permanantDtoList.toString());
+		return permanantDtoList ;}
+		
+		return new ArrayList<PermanentLicenseApplicationDTO>();
 	}
 }
 
