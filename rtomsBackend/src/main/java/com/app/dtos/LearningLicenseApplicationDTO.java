@@ -84,8 +84,10 @@ public class LearningLicenseApplicationDTO {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Status status;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	private TestResult result;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime validTill;
 
 }
