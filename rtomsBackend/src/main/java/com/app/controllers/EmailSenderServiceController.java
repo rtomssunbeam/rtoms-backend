@@ -1,12 +1,16 @@
 package com.app.controllers;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dtos.EmailRequestDTO;
@@ -20,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/emailService")
+@Validated
 @CrossOrigin(origins = "http://localhost:3000")
 public class EmailSenderServiceController {
 	
@@ -35,7 +40,7 @@ public class EmailSenderServiceController {
 //    }
 
     @PostMapping("/send-otp")
-    public ResponseEntity<EmailResponseDTO> sendOTP(@RequestBody EmailRequestDTO emailRequest) {
+    public ResponseEntity<EmailResponseDTO> sendOTP(@RequestBody @Valid EmailRequestDTO emailRequest) {
         String email = emailRequest.getEmail();
         
         logger.info(emailRequest.toString());
@@ -72,7 +77,7 @@ public class EmailSenderServiceController {
         //Update resent OTP value in database
         emailSenderService.updateOtpByEmail(email, otp);
 
-        String responseMessage = "OTP sent successfully!";
+        String responseMessage = "OTP resent successfully!";
         EmailResponseDTO responseDTO = new EmailResponseDTO(email, responseMessage);
 
         return ResponseEntity.ok(responseDTO);

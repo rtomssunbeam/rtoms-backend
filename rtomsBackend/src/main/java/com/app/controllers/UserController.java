@@ -35,7 +35,7 @@ public class UserController {
 	}
 
 	@PostMapping("/signUp")
-	public ResponseEntity<?>signUp(@RequestBody UserDTO user)
+	public ResponseEntity<?>signUp(@RequestBody @Valid UserDTO user)
 	{
 		Logger logger=LoggerFactory.getLogger(UserController.class);
 	   	logger.info(user.toString());

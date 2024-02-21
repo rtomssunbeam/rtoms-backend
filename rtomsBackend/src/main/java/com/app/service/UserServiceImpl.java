@@ -14,6 +14,7 @@ import com.app.daos.UserDao;
 import com.app.dtos.SignInDTO;
 import com.app.dtos.UserDTO;
 import com.app.entities.User;
+import com.app.enums.Role;
 
 @Service
 public class UserServiceImpl implements UserService  {
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService  {
 	public void addUser(UserDTO userDTO)
 	{
 		User user=mapper.map(userDTO, User.class);
-		
+		user.setRole(Role.USER);
 		userDao.save(user);
 	}
 	
