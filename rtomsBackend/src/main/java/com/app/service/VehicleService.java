@@ -22,4 +22,6 @@ List<VehicleDTO> getVehicles(Integer userId);
 VehicleDTO getVehicle(Integer vehicleId);
 
 List<VehicleDTO> getVehiclesByOwnerAdharNo(String ownerAdharNo);
+
+List<VehicleDTO> findMyVehiclesByUserId(String userId);
 }

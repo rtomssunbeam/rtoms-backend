@@ -33,7 +33,7 @@ import com.app.enums.TestResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-
+@Transactional
 public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseApplicationService {
 
 	@Autowired
@@ -79,6 +79,8 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 
 		Integer userId = learnerApplicationDTO.getUserId();
 		User user = userDao.findById(userId).orElseThrow();
+		logger.info(user.toString());
+
 		
 		
 		System.out.println(learnerApplicationDTO.getPostalAddressDTO());
@@ -117,6 +119,9 @@ public class LearnerLicenseApplicationServiceImpl implements LearnerLicenseAppli
 	public ApiResponse updateStatus(Integer learnerAppId,Status status) {
 		
 		ApiResponse resp=new ApiResponse("status updatation failed");
+		
+		logger.info(learnerAppId.toString());
+		logger.info(status.toString());
 		
 		LearnerLicenseApplication learnerApp =learnerAppDao.findById(learnerAppId).orElseThrow();
 		

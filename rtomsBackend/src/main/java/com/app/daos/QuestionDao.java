@@ -14,7 +14,7 @@ public interface QuestionDao extends JpaRepository<Question,Integer> {
 //	@Query(value = "SELECT * FROM questions WHERE RAND() <= 0.2 ORDER BY RAND()", nativeQuery = true)
 //	List<Question> find20RandomQuestions();
 	
-    @Query(value = "SELECT * FROM questions ORDER BY RAND() LIMIT 20", nativeQuery = true)
+    @Query(value = "SELECT * FROM questions ORDER BY RAND() LIMIT 10", nativeQuery = true)
     List<Question> find20RandomQuestions();
 
 

@@ -57,8 +57,8 @@ public class LearnerLicenseApplication extends BaseEntity {
 	private String mobileNumber;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id", referencedColumnName = "id")
-	@MapsId("id") // Map id to the primary key of PostalAddress
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+//	@MapsId("id") // Map id to the primary key of PostalAddress
 	private PostalAddress postalAddress;
 
 	@Column(name = "gender")

@@ -86,7 +86,14 @@ public class AdminController {
 
 	{
 		return ResponseEntity.status(200).body(adminService.getLearnerApplicationDetails(learnerAppId));
-	}	
+	}
+	
+	@GetMapping("/getVehicleInfo/{regNo}")
+	public ResponseEntity<?>getVehicleDetails(@PathVariable String regNo)
+
+	{
+		return ResponseEntity.status(200).body(adminService.getVehicleService(regNo));
+	}
 	
 	
 }

@@ -85,12 +85,14 @@ public class LearningLicenseApplicationDTO {
 	private Status status;
 	
 	private TestResult result;
+	
+	private LocalDateTime validTill;
 
 }
 
 /*
  { "firstName": "rajdeep", "middleName": "shankar", "lastName": "sutar",
-  "mobileNumber": "9503842751", "userId": 1, "postalAddressDTO": { "house": "A16",
+  "mobileNumber": "9503842751", "userId": 2, "postalAddressDTO": { "house": "A16",
   "street": "mg road", "city": "hinjawadi", "state": "MH", "country": "India",
   "zipCode": "411057" }, "gender": "MALE", "bloodGroup": "AB_POSITIVE",
   "dateOfBirth": "2024-02-14", "rtoOffice": "KOLHAPUR", "qualification":

@@ -19,17 +19,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.app.daos.LearnerApplicationDao;
 import com.app.daos.OwnerDao;
 import com.app.daos.UserDao;
+import com.app.daos.VehicleDao;
 import com.app.dtos.ApplicationTypeDTO;
 import com.app.dtos.DocumentDTO;
 import com.app.dtos.LearningLicenseApplicationDTO;
 import com.app.dtos.OwnerDTO;
 import com.app.dtos.PostalAddressDTO;
 import com.app.dtos.UserDTO;
+import com.app.dtos.VehicleDTO;
 import com.app.entities.Document;
 import com.app.entities.LearnerLicenseApplication;
 import com.app.entities.Owner;
 import com.app.entities.PostalAddress;
 import com.app.entities.User;
+import com.app.entities.Vehicle;
 import com.app.enums.DocumentName;
 
 @Service
@@ -48,6 +51,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private VehicleDao vehicleDao;
 	
 	@Override
 	public List<UserDTO> getAllUsersPaginated(int pageNumber) {
@@ -133,6 +139,18 @@ public class AdminServiceImpl implements AdminService {
         }
         
 		return applicationDTO;
+	}
+
+
+	@Override
+	public VehicleDTO getVehicleService(String regNo) {
+		
+		Vehicle vehicle=vehicleDao.getByRegistrationNumber(regNo);
+		if(vehicle!=null)
+		{
+			return mapper.map(vehicle, VehicleDTO.class);
+		}
+		return null;
 	}
 }
 

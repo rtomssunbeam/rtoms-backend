@@ -70,5 +70,11 @@ public class VehicleRegistrationController {
 		return ResponseEntity.status(200).body(vehicleService.getVehiclesByOwnerAdharNo(OwnerAdharNo));
 	}
 	
+	@GetMapping(value="/findMyVehicle")
+	ResponseEntity<?>findMyVehiclesByUserId(@RequestParam String userId)
+	{
+		return ResponseEntity.status(200).body(vehicleService.findMyVehiclesByUserId(userId));
+	}
+	
 	
 }

@@ -72,12 +72,12 @@ public class UserServiceImpl implements UserService  {
 		if(learnerApplication!=null) {
 			LearningLicenseApplicationDTO learnerApp= mapper.map(learnerApplication, LearningLicenseApplicationDTO.class);
 			System.out.println(learnerApplication);
-			myApplications.add(new LicenseApplicationDTO(learnerApp.getId(),"Learner License",learnerApp.getStatus()));
+			myApplications.add(new LicenseApplicationDTO(learnerApp.getId(),"Learner License",learnerApp.getStatus(),learnerApplication.getValidTill()));
 		}
 		if(permanentApplication !=null)
 		{
 			PermanentLicenseApplicationDTO permanentApp = mapper.map(permanentApplication, PermanentLicenseApplicationDTO.class);
-			myApplications.add(new LicenseApplicationDTO(permanentApp .getId(),"Permanent License",permanentApp.getStatus()));
+			myApplications.add(new LicenseApplicationDTO(permanentApp .getId(),"Permanent License",permanentApp.getStatus(),permanentApplication.getValidTime()));
 		}
 		
 		return myApplications;
