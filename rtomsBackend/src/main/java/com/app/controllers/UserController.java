@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dtos.ApiResponse;
+import com.app.dtos.SignInDTO;
 import com.app.dtos.UserDTO;
 import com.app.entities.User;
 import com.app.service.UserService;
@@ -25,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user")
 @Slf4j
 @Validated
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 	
 	@Autowired
@@ -47,7 +48,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/signIn")
-	public ResponseEntity<?>logIn(@RequestBody UserDTO userDto)
+	public ResponseEntity<?>logIn(@RequestBody SignInDTO userDto)
 	{
 		Logger logger=LoggerFactory.getLogger(UserController.class);
 	   	logger.info(userDto.toString());

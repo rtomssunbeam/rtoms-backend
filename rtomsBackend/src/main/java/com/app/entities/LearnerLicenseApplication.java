@@ -36,7 +36,7 @@ public class LearnerLicenseApplication extends BaseEntity {
 		this.entryTime = LocalDateTime.now();
 		;
 		this.approvalTime = approvalTime;
-		this.validTime = validTime;
+		this.validTill = validTime;
 		this.status = status;
 	}
 
@@ -57,8 +57,8 @@ public class LearnerLicenseApplication extends BaseEntity {
 	private String mobileNumber;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id", referencedColumnName = "id")
-	@MapsId("id") // Map id to the primary key of PostalAddress
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+//	@MapsId("id") // Map id to the primary key of PostalAddress
 	private PostalAddress postalAddress;
 
 	@Column(name = "gender")
@@ -101,13 +101,17 @@ public class LearnerLicenseApplication extends BaseEntity {
 	@Column(name = "approval_time")
 	private LocalDateTime approvalTime;
 
-	@Column(name = "valid_time")
-	private LocalDateTime validTime;
+	@Column(name = "valid_till")
+	private LocalDateTime validTill;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
 	private Status status;
-
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "test_result")
+	private TestResult result;
+	
 	public void addType(ApplicationType applicationType) {
 		this.applicationTypes.add(applicationType);
 		applicationType.getLearnerLicenseApplications().add(this);
@@ -119,6 +123,6 @@ public class LearnerLicenseApplication extends BaseEntity {
 				+ lastName + ", mobileNumber=" + mobileNumber + ", postalAddress=" + postalAddress + ", gender="
 				+ gender + ", bloodGroup=" + bloodGroup + ", dateOfBirth=" + dateOfBirth + ", rtoOffice=" + rtoOffice
 				+ ", qualification=" + qualification + ", entryTime=" + entryTime + ", approvalTime=" + approvalTime
-				+ ", validTime=" + validTime + ", status=" + status + "]";
+				+ ", validTime=" + validTill + ", status=" + status + "]";
 	}
 }

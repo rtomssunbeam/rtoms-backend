@@ -1,4 +1,6 @@
 package com.app.dtos;
+import java.time.LocalDateTime;
+
 import com.app.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -18,4 +20,5 @@ public class LicenseApplicationDTO {
     private Integer id;
     private String name;
     private Status status;
+    private LocalDateTime validTill;
 }

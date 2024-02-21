@@ -21,6 +21,7 @@ import com.app.enums.Gender;
 import com.app.enums.Qualification;
 import com.app.enums.RtoOffice;
 import com.app.enums.Status;
+import com.app.enums.TestResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -82,12 +83,18 @@ public class LearningLicenseApplicationDTO {
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private Status status;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private TestResult result;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private LocalDateTime validTill;
 
 }
 
 /*
  { "firstName": "rajdeep", "middleName": "shankar", "lastName": "sutar",
-  "mobileNumber": "9503842751", "userId": 1, "postalAddressDTO": { "house": "A16",
+  "mobileNumber": "9503842751", "userId": 2, "postalAddressDTO": { "house": "A16",
   "street": "mg road", "city": "hinjawadi", "state": "MH", "country": "India",
   "zipCode": "411057" }, "gender": "MALE", "bloodGroup": "AB_POSITIVE",
   "dateOfBirth": "2024-02-14", "rtoOffice": "KOLHAPUR", "qualification":

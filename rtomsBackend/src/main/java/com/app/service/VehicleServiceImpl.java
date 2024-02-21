@@ -118,4 +118,43 @@ public class VehicleServiceImpl implements VehicleService {
 		
 		return mapper.map(vehicleDao.findById(vehicleId).orElseThrow(()->new VehicleNotFoundException("vehicle not found")), VehicleDTO.class);
 	}
+
+	@Override
+	public List<VehicleDTO> getVehiclesByOwnerAdharNo(String ownerAdharNo) {
+		
+		List<Vehicle>vehicles=new ArrayList<Vehicle>();
+
+		
+		
+		vehicles=vehicleDao.findByOwnerAdharcardNo(ownerAdharNo);
+		
+		
+		if(!vehicles.isEmpty())
+		{
+			return vehicles.stream().map(vehicle->mapper.map(vehicle, VehicleDTO.class)).collect(Collectors.toList());
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<VehicleDTO> findMyVehiclesByUserId(String userId) {
+		User user=userDao.findById(Integer.parseInt(userId)).orElseThrow(()->new UserNotFoundException("User Not Found"));
+		String ownerAdharNo=user.getAdharcardNo();
+		
+		
+List<Vehicle>vehicles=new ArrayList<Vehicle>();
+
+		
+		
+		vehicles=vehicleDao.findByOwnerAdharcardNo(ownerAdharNo);
+		
+		
+		if(!vehicles.isEmpty())
+		{
+			return vehicles.stream().map(vehicle->mapper.map(vehicle, VehicleDTO.class)).collect(Collectors.toList());
+		}
+		
+		return new ArrayList<VehicleDTO>();
+	}
 }

@@ -13,6 +13,10 @@ public interface VehicleDao extends JpaRepository<Vehicle, Integer> {
 
 	List<Vehicle> findByOwnerAdharcardNo(String adharNo);
 
+	Vehicle getByRegistrationNumber(String regNo);
+
+	
+
 
 
 	

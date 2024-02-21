@@ -22,10 +22,14 @@ public class UserDTO {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Integer id;
 	
-	@NotBlank(message = "Email required!")
+	@NotBlank(message = "Email is required!")
     @Email(message = "Please provide a valid email address")
     private String email;
 
+	@NotBlank(message = "Adhar card number is required!")
+	@Size(min = 12, max =12, message = "Adhar card number must be 12 digits")
+	private String adharcardNo;
+	
     @NotBlank(message = "First name is required")
     @Size(max = 20, message = "First name must be at most 20 characters")
     private String firstName;

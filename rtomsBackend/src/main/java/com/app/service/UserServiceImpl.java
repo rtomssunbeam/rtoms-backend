@@ -17,11 +17,13 @@ import com.app.daos.UserDao;
 import com.app.dtos.LearningLicenseApplicationDTO;
 import com.app.dtos.LicenseApplicationDTO;
 import com.app.dtos.PermanentLicenseApplicationDTO;
+import com.app.dtos.SignInDTO;
 import com.app.dtos.UserDTO;
 import com.app.entities.BaseEntity;
 import com.app.entities.LearnerLicenseApplication;
 import com.app.entities.PermanentLicenseApplication;
 import com.app.entities.User;
+import com.app.enums.Role;
 
 @Service
 public class UserServiceImpl implements UserService  {
@@ -41,12 +43,12 @@ public class UserServiceImpl implements UserService  {
 	public void addUser(UserDTO userDTO)
 	{
 		User user=mapper.map(userDTO, User.class);
-		
+		user.setRole(Role.USER);
 		userDao.save(user);
 	}
 	
 	@Override
-	public User authenticate(UserDTO userDto) {
+	public User authenticate(SignInDTO userDto) {
 		
 		return userDao.findByEmail(mapper.map(userDto, User.class).getEmail());
 	}
@@ -70,12 +72,12 @@ public class UserServiceImpl implements UserService  {
 		if(learnerApplication!=null) {
 			LearningLicenseApplicationDTO learnerApp= mapper.map(learnerApplication, LearningLicenseApplicationDTO.class);
 			System.out.println(learnerApplication);
-			myApplications.add(new LicenseApplicationDTO(learnerApp.getId(),"Learner License",learnerApp.getStatus()));
+			myApplications.add(new LicenseApplicationDTO(learnerApp.getId(),"Learner License",learnerApp.getStatus(),learnerApplication.getValidTill()));
 		}
 		if(permanentApplication !=null)
 		{
 			PermanentLicenseApplicationDTO permanentApp = mapper.map(permanentApplication, PermanentLicenseApplicationDTO.class);
-			myApplications.add(new LicenseApplicationDTO(permanentApp .getId(),"Permanent License",permanentApp.getStatus()));
+			myApplications.add(new LicenseApplicationDTO(permanentApp .getId(),"Permanent License",permanentApp.getStatus(),permanentApplication.getValidTime()));
 		}
 		
 		return myApplications;
