@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import com.app.dtos.VerifyOTPResponseDTO;
 import com.app.entities.OTPRecord;
 
 @Service
+
 public class EmailSenderServiceImpl implements EmailSenderService {
 	
 	private static final String DIGITS = "0123456789";

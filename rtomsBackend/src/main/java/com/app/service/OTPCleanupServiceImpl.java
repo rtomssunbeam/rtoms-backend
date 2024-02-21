@@ -1,6 +1,7 @@
 package com.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,8 @@ public class OTPCleanupServiceImpl implements OTPCleanupService{
 	
 	
 	@Transactional//@Scheduled(cron = "0 */5 * * * *")// Execute daily at midnight
-	@Scheduled(fixedRate = 10000)// 5 minutes in milliseconds (fixedDelay = 5 * 60 * 1000)
+//	@Scheduled(fixedRate = 10000)// 5 minutes in milliseconds (fixedDelay = 5 * 60 * 1000)
+	@Scheduled(cron="@daily")
 	@Override
 	public void cleanupExpiredOtpRecords() {
 		emailSenderServiceDao.deleteExpiredRecords();

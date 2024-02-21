@@ -17,4 +17,6 @@ public interface LearnerLicenseApplicationService {
 
 	public LearningLicenseApplicationDTO getApplication(Integer appId);
 
+	void expireLearnerApplications();//to check the validity of learner license and expire it 
+
 }

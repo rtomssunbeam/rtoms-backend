@@ -19,7 +19,7 @@ public interface EmailSenderServiceDao extends JpaRepository<OTPRecord, Integer>
 	    
 	    @Modifying
 	    @Transactional
-	    @Query(value = "DELETE FROM rtoms_temp.otprecord_tbl WHERE timestamp < CURRENT_TIMESTAMP() LIMIT 1000", nativeQuery = true)
+	    @Query(value = "DELETE FROM otprecord_tbl WHERE timestamp < CURRENT_TIMESTAMP() LIMIT 1000", nativeQuery = true)
 	    void deleteExpiredRecords();
 //	    @Modifying
 //	    @Transactional
